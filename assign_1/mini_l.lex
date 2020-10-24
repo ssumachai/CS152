@@ -7,10 +7,10 @@
 #include <unistd.h>
 %}
 
-ID [a-zA-Z][a-zA-Z0-9_]*[a-zA-Z0-9]
+ID ([a-zA-Z]([a-zA-Z0-9_]*)([a-zA-Z]|[0-9]))|[a-zA-Z]
 NUM [0-9]+
 INVALID_ID_1 [0-9_]{ID}
-INVALID_ID_2 [a-zA-Z][a-zA-Z0-9_]*
+INVALID_ID_2 [a-zA-Z]([a-zA-Z0-9_]*)
 
 	int num_lines = 1, num_chars = 0;
 %%
@@ -26,6 +26,8 @@ beginlocals	printf("BEGIN_LOCALS\n"); num_chars += yyleng;
 endlocals	printf("END_LOCALS\n"); num_chars += yyleng;
 beginbody	printf("BEGIN_BODY\n"); num_chars += yyleng;
 endbody		printf("END_BODY\n"); num_chars += yyleng;
+beginprogram 	printf("BEGIN_PROGRAM\n"); num_chars += yyleng;
+endprogram	printf("END_PROGRAM\n"); num_chars += yyleng;
 integer		printf("INTEGER\n"); num_chars += yyleng;
 array		printf("ARRAY\n"); num_chars += yyleng;
 of		printf("OF\n"); num_chars += yyleng;
